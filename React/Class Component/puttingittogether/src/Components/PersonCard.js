@@ -8,7 +8,7 @@ class PersonCard extends Component {
         };
     }
     BirthdayButton =() => {
-        this.setState({age : this.props.age +1});
+        this.setState({age : this.state.age +1});
     }
         render() {
             return (
