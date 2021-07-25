@@ -1,7 +1,7 @@
 import React ,{useState , useEffect} from 'react'
 
 const Pokemon = () => {
-    const [pekomen, setPokemon] = useState([]);
+    const [pokomen, setPokemon] = useState([]);
 
     const clickHandler = (e) => {
         fetch('https://pokeapi.co/api/v2/pokemon?limit=807')
@@ -14,8 +14,8 @@ const Pokemon = () => {
     return (
         <div>
             <button onClick={clickHandler} >Fetch Pokemon</button>
-            {pekomen.length > 0 && pekomen.map((pekomen, index)=>{
-                return (<div key={index}>{pekomen.name}</div>)
+            {pokomen.length > 0 && pokomen.map((pokomen, index)=>{
+                return (<div key={index}>{pokomen.name}</div>)
             })}
         </div>
     );
