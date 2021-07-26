@@ -1,22 +1,22 @@
 import logo from './logo.svg';
 import './App.css';
+import { Router } from '@reach/router';
+import Home from './Components/Home'
+import Par from './Components/Par'
+import ColorChange from './Components/ColorChange'
+
+
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <Router>
+        <Home path="/home"/>
+        <Par path="/:par"/>
+        <Par path="/:par"/>
+        <ColorChange path="/:par/:color/:background"/>
+        </Router>
       </header>
     </div>
   );
