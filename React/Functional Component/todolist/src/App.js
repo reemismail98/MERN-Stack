@@ -9,7 +9,6 @@ return(
   <div className="App">
   <header>
     <Todo />
-
  </header>
   </div>
 )
