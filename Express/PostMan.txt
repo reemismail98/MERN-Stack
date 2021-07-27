@@ -1,0 +1,10 @@
+1-
+https://pokeapi.co/api/v2/ability/?limit=20&offset=20
+2-
+https://pokeapi.co/api/v2/berry-firmness/2/
+3-
+https://pokeapi.co/api/v2/berry/3/
+4-
+https://pokeapi.co/api/v2/language/9/
+5-
+https://pokeapi.co/api/v2/berry-flavor/1/
