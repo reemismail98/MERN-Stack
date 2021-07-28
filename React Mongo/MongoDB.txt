@@ -1,0 +1,190 @@
+1-
+> use my_first_db
+switched to db my_first_db
+
+2-
+> db.createCollection("students")
+{ "ok" : 1 }
+
+3-
+> show dbs
+admin        0.000GB
+config       0.000GB
+local        0.000GB
+my_first_db  0.000GB
+
+4-
+> show collections
+students
+
+5-
+> db.students.insert({name: "Reem", home_state: "bit iba", lucky_number: 10, birthday: {month: 10, day:25, year: 1998}})
+WriteResult({ "nInserted" : 1 })
+> db.students.insert({name: "tasnim", home_state: "nablus", lucky_number: 15, birthday: {month: 2, day:25, year: 1994}})
+WriteResult({ "nInserted" : 1 })
+> db.students.insert({name: "omer", home_state: "ramallah", lucky_number: 2, birthday: {month: 4, day:5, year: 1997}})
+WriteResult({ "nInserted" : 1 })
+> db.students.insert({name: "deema", home_state: "nablus", lucky_number: 4, birthday: {month: 10, day:15, year: 2003}})
+WriteResult({ "nInserted" : 1 })
+> db.students.insert({name: "ali", home_state: "nablus", lucky_number: 20, birthday: {month: 2, day:15, year: 1995}})
+WriteResult({ "nInserted" : 1 })
+
+6-
+> db.students.find().pretty()
+{
+        "_id" : ObjectId("6101a006b6169c14879df419"),
+        "name" : "Reem",
+        "home_state" : "bit iba",
+        "lucky_number" : 10,
+        "birthday" : {
+                "month" : 10,
+                "day" : 25,
+                "year" : 1998
+        }
+}
+{
+        "_id" : ObjectId("6101a069b6169c14879df41a"),
+        "name" : "tasnim",
+        "home_state" : "nablus",
+        "lucky_number" : 15,
+        "birthday" : {
+                "month" : 2,
+                "day" : 25,
+                "year" : 1994
+        }
+}
+{
+        "_id" : ObjectId("6101a106b6169c14879df41b"),
+        "name" : "omer",
+        "home_state" : "ramallah",
+        "lucky_number" : 2,
+        "birthday" : {
+                "month" : 4,
+                "day" : 5,
+                "year" : 1997
+        }
+}
+{
+        "_id" : ObjectId("6101a16ab6169c14879df41c"),
+        "name" : "deema",
+        "home_state" : "nablus",
+        "lucky_number" : 4,
+        "birthday" : {
+                "month" : 10,
+                "day" : 15,
+                "year" : 2003
+        }
+}
+{
+        "_id" : ObjectId("6101a2a0b6169c14879df41d"),
+        "name" : "ali",
+        "home_state" : "nablus",
+        "lucky_number" : 20,
+        "birthday" : {
+                "month" : 2,
+                "day" : 15,
+                "year" : 1995
+        }
+}
+
+7-
+> db.students.find({home_state:"nablus"}).pretty()
+{
+        "_id" : ObjectId("6101a069b6169c14879df41a"),
+        "name" : "tasnim",
+        "home_state" : "nablus",
+        "lucky_number" : 15,
+        "birthday" : {
+                "month" : 2,
+                "day" : 25,
+                "year" : 1994
+        }
+}
+{
+        "_id" : ObjectId("6101a16ab6169c14879df41c"),
+        "name" : "deema",
+        "home_state" : "nablus",
+        "lucky_number" : 4,
+        "birthday" : {
+                "month" : 10,
+                "day" : 15,
+                "year" : 2003
+        }
+}
+{
+        "_id" : ObjectId("6101a2a0b6169c14879df41d"),
+        "name" : "ali",
+        "home_state" : "nablus",
+        "lucky_number" : 20,
+        "birthday" : {
+                "month" : 2,
+                "day" : 15,
+                "year" : 1995
+        }
+}
+
+8-
+> db.students.find({lucky_number:{$gt:3}})
+{ "_id" : ObjectId("6101a006b6169c14879df419"), "name" : "Reem", "home_state" : "bit iba", "lucky_number" : 10, "birthday" : { "month" : 10, "day" : 25, "year" : 1998 } }
+{ "_id" : ObjectId("6101a069b6169c14879df41a"), "name" : "tasnim", "home_state" : "nablus", "lucky_number" : 15, "birthday" : { "month" : 2, "day" : 25, "year" : 1994 } }
+{ "_id" : ObjectId("6101a16ab6169c14879df41c"), "name" : "deema", "home_state" : "nablus", "lucky_number" : 4, "birthday" : { "month" : 10, "day" : 15, "year" : 2003 } }
+{ "_id" : ObjectId("6101a2a0b6169c14879df41d"), "name" : "ali", "home_state" : "nablus", "lucky_number" : 20, "birthday" : { "month" : 2, "day" : 15, "year" : 1995 } }
+
+9-
+> db.students.find({lucky_number:{$lte:10}})
+{ "_id" : ObjectId("6101a006b6169c14879df419"), "name" : "Reem", "home_state" : "bit iba", "lucky_number" : 10, "birthday" : { "month" : 10, "day" : 25, "year" : 1998 } }
+{ "_id" : ObjectId("6101a106b6169c14879df41b"), "name" : "omer", "home_state" : "ramallah", "lucky_number" : 2, "birthday" : { "month" : 4, "day" : 5, "year" : 1997 } }
+{ "_id" : ObjectId("6101a16ab6169c14879df41c"), "name" : "deema", "home_state" : "nablus", "lucky_number" : 4, "birthday" : { "month" : 10, "day" : 15, "year" : 2003 } }
+
+10-
+> db.students.find({$and:[{lucky_number:{$gte:1}},{lucky_number:{$lte:9}}]})
+{ "_id" : ObjectId("6101a106b6169c14879df41b"), "name" : "omer", "home_state" : "ramallah", "lucky_number" : 2, "birthday" : { "month" : 4, "day" : 5, "year" : 1997 } }
+{ "_id" : ObjectId("6101a16ab6169c14879df41c"), "name" : "deema", "home_state" : "nablus", "lucky_number" : 4, "birthday" : { "month" : 10, "day" : 15, "year" : 2003 } }
+
+11-
+> db.students.update({},{$set:{intersts:["coding","brunch","MongoDB"]}},{multi:true})
+WriteResult({ "nMatched" : 5, "nUpserted" : 0, "nModified" : 5 })
+
+12-
+> db.students.update({name:"Reem"},{$push:{intersts:"drawing"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+13-
+> db.students.update({name:"omer"},{$push:{intersts:"taxes"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+14-
+> db.students.update({name:"omer"},{$pop:{intersts:(1)}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 }
+
+15-
+> db.students.remove({home_state:"ramallah"})
+WriteResult({ "nRemoved" : 1 })
+
+16-
+> db.students.remove({name:"tasnim"})
+WriteResult({ "nRemoved" : 1 })
+
+17-
+> db.students.remove({lucky_number:{$gt:5}},true)
+WriteResult({ "nRemoved" : 1 })
+
+18-
+> db.students.update({},{$set:{number_of_belts:0}},{multi:true})
+WriteResult({ "nMatched" : 2, "nUpserted" : 0, "nModified" : 2 })
+
+19-
+> db.students.update({home_state:"nablus"},{$inc:{number_of_belts:+1}},{multi:true})
+WriteResult({ "nMatched" : 2, "nUpserted" : 0, "nModified" : 2 })
+
+20-
+> db.students.update({},{$rename:{"number_of_belts":"belts_earned"}},{multi:true})
+WriteResult({ "nMatched" : 2, "nUpserted" : 0, "nModified" : 1 })
+
+21-
+> db.students.update({},{$unset:{lucky_number:""}},{multi:true})
+WriteResult({ "nMatched" : 2, "nUpserted" : 0, "nModified" : 1 })
+
+22-
+> db.students.update({},{$currentDate:{updated_on:true}},{multi:true})
+WriteResult({ "nMatched" : 2, "nUpserted" : 0, "nModified" : 2 })
