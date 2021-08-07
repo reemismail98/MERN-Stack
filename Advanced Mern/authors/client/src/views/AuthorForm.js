@@ -26,11 +26,7 @@ const AuthorForm = (props) => {
         axios.post('http://localhost:8000/api/authors/new', {
             name
             })
-            .then((res) => {
-                console.log(res)
-                setName('')
-                navigate("/authors")
-            })
+            .then((res) => console.log(res) & navigate("/authors"))
             .catch(err=>{
                 const errorResponse = err.response.data.errors; // Get the errors from err.response.data
                 const errorArr = []; // Define a temp error array to push the messages in
@@ -42,17 +38,14 @@ const AuthorForm = (props) => {
             }) }           
     
         
-    const home = (nameId) => {
-        axios.get('http://localhost:8000/api/authors/')
-            .then(res => {
-                navigate("/authors")
-            })
+    const home = () => {
+        navigate("/authors")
     }
 
     return (
         <> 
             <h2>Favorite Authors:</h2>
-            <Button type="submit" variant="contained" color="primary" onClick={e => {home(name._id)}}>
+            <Button type="submit" variant="contained" color="primary" onClick={e => {home()}}>
                 Home
                 </Button>      
               <p>Add a new Author</p>
@@ -65,10 +58,10 @@ const AuthorForm = (props) => {
                     <OutlinedInput type="text" onChange={(e) => setName(e.target.value)}/>
                 </FormControl>
                 <br/><br/>
-                <Button style={styles.button} type="submit" variant="contained" color="primary" onClick={e => {home(name._id)}}>
+                <Button style={styles.button} type="submit" variant="contained" color="primary" onClick={e => {home()}}>
                 Cancel
                 </Button>
-                <Button style={styles.button} type="submit" variant="contained" color="primary" onClick={e => {home(name._id)}}>
+                <Button style={styles.button} type="submit" variant="contained" color="primary" >
                 Submit
                 </Button>
             </form>

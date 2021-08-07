@@ -5,7 +5,7 @@ module.exports.createNewAuthor = (req, res) => {
     Author.create({
        name
     })
-        .then(author => req.json({author}))
+        .then(author => res.json({author}))
         .catch(err => res.status(400).json(err))
 }
 
