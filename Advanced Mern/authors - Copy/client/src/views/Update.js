@@ -19,28 +19,23 @@ const styles = {
 const Update = (props) => {
     const {id} = props;
     const[name,setName]=useState('');
-    const[position,setPosition]=useState('');
-
     const [errors, setErrors] = useState([]); 
 
 
 useEffect(()=>{
-    axios.get('http://localhost:8000/api/managers/'+ id)
+    axios.get('http://localhost:8000/api/authors/'+ id)
     .then(res=>{
         console.log(res)
-        setName(res.data.manager.name);
-        setPosition(res.data.manager.position);
-
+        setName(res.data.author.name);
     })
 },[])
 
-const updateManager = (e) => {
+const updateAuthor = (e) => {
     e.preventDefault()
-    axios.put('http://localhost:8000/api/managers/'+ id, {
+    axios.put('http://localhost:8000/api/authors/'+ id, {
       name,
-      position
     })
-    .then((res) => console.log(res) & navigate("/managers"))
+    .then((res) => console.log(res) & navigate("/authors"))
     .catch(err=>{
             const errorResponse = err.response.data.errors; // Get the errors from err.response.data
             const errorArr = []; // Define a temp error array to push the messages in
@@ -51,34 +46,29 @@ const updateManager = (e) => {
             setErrors(errorArr);
         }) }
 
-const home = () => {
-navigate("/managers")
-}
+        const home = () => {
+            navigate("/authors")
+        }
 
     return (
         <div>
-
-
-                <h2>Edit Player:</h2>
-            {/* <Button type="submit" variant="contained" color="primary" onClick={e=>home()}>
+                <h2>Favorite Authors:</h2>
+            <Button type="submit" variant="contained" color="primary" onClick={e => {home()}}>
                 Home
-                </Button>       */}
-                  <form onSubmit={updateManager}>
+                </Button>      
+              <p>Edot the Author</p>
+                  <form onSubmit={updateAuthor}>
                 {errors.map((err, index) => <p key={index}>{err}</p>)}
 
                 <FormControl variant="outlined">
-                    <label>Name : </label>
+                    <label>Name: </label>
                     <OutlinedInput type="text" value={name} onChange={(e) => setName(e.target.value)}/>
                 </FormControl>
-                <FormControl variant="outlined">
-                    <label>Position : </label>
-                    <OutlinedInput type="text" value={position} onChange={(e) => setPosition(e.target.value)}/>
-                </FormControl>
                 <br/><br/>
-                <Button style={styles.button} type="submit" variant="contained" color="primary" onClick={e=>home()}>
+                <Button style={styles.button} type="submit" variant="contained" color="primary" onClick={e => {home()}}>
                 Cancel
                 </Button>
-                <Button style={styles.button} type="submit" variant="contained" color="primary">
+                <Button style={styles.button} type="submit" variant="contained" color="primary" >
                 Submit
                 </Button>
             </form>

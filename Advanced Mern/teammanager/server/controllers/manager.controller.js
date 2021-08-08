@@ -1,13 +1,18 @@
 const { Manager } = require('../models/manager.model');
 
 module.exports.createNewManager = (req, res) => {
-    const { name } = req.body
+    const { name,position } = req.body
     Manager.create({
-       name
+       name,
+       position,
+       Game1:"Undecided",
+       Game2:"Undecided",
+       Game3:"Undecided"
     })
         .then(manager => res.json({manager}))
         .catch(err => res.status(400).json(err))
 }
+
 
 module.exports.findAllManagers = (request, response) => {
     Manager.find({})
@@ -29,7 +34,7 @@ module.exports.updateExistingManager = (req, res) => {
         { new: true, runValidators: true }
     )
         .then(updatedManager => res.json({ manager: updatedManager }))
-        .catch(err => res.json({ message: 'Something went wrong', error: err }));
+        .catch(err => res.status(400).json(err ));
 }
  
 module.exports.deleteAnExistingManager = (req, res) => {

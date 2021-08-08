@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { Link } from '@reach/router';
+import Header from './Header';
 import {
     FormControl,
     label,
@@ -16,7 +17,7 @@ const ManagerList = (props) => {
             .then(res => {
                 setManager(res.data)
             console.log(res.data)
-    })})
+    })},[])
     const deleteManager = (managerId) => {
         axios.delete('http://localhost:8000/api/managers/' + managerId)
             .then(res => {
@@ -25,25 +26,79 @@ const ManagerList = (props) => {
     }
    return (
         <div>
-            <h2>Favorite Authors</h2>
-            <Link to="new">Add an Author </Link> 
-            <p>We have quotes by:</p>
-
-
+          <Header/>
+            <table>
+                <tr>
+                    <th>Team Name</th>
+                    <th>Preferred Position</th>
+                    <th>Actions</th>
+                </tr>
             {props.manager.map((manager, idx)=>{
-                return <p key={idx}><Link to={manager._id}>{manager.name} </Link> 
-                
-            <button type="submit" variant="contained" color="primary" onClick={(e)=>{deleteManager(manager._id)}}>
+                return <tr key={idx}><Link to={manager._id}><td>{manager.name}</td></Link> 
+                <td>{manager.position}</td>
+                <td>
+            <Button type="submit" variant="contained" color="primary" onClick={(e)=>{deleteManager(manager._id)}}>
                 Delete
-                </button>
-            <Link to={manager._id + "/edit"}>
-            <button type="submit" variant="contained" color="primary" >
+                </Button>
+                <Link to={manager._id + "/edit"}>
+            <Button type="submit" variant="contained" color="primary" >
                 Edit
-                </button>
-            </Link>
-            </p>
+                </Button>
+            </Link></td>
+            </tr>
             })}
+            </table>
         </div>
     )
 }
 export default ManagerList
+
+
+// import React, {useState} from 'react'
+// import axios from 'axios';
+// import { Link, navigate } from '@reach/router';
+
+// const PlayerForm = () => {
+//     const [name, setName]=useState("");
+//     const [position, setPosition]=useState("");
+//     const [errors, setErrors]=useState([]);
+
+
+//     const onSubmitHandler = e => {
+//         //prevent default behavior of the submit
+//         e.preventDefault();
+//         //make a post request to create a new person
+//         axios.post('http://localhost:8000/api/managers', {
+//             name,
+//             position,
+//         })
+//         .then(res=>navigate("/managers/list"))
+//         .catch(err=>{
+        
+//             const errorResponse = err.response.data.errors; 
+//             const errorArr = []; 
+//             for (const key of Object.keys(errorResponse)) { 
+//                 errorArr.push(errorResponse[key].message)
+//             }
+//             setErrors(errorArr);
+//         })  
+//     }
+//     return (
+//         <div>
+//             <form onSubmit={onSubmitHandler}>
+//         {errors? errors.map((eachError)=>{
+//             return(<p>{eachError}</p>) 
+//         })
+//         :""
+//         }
+//                 <label>Player Name</label>
+//                 <input type="text"  onChange={(e)=>setName(e.target.value)} value={name}/><br/>
+//                 <label>Prefered Position</label>
+//                 <input type="text" onChange={(e)=>setPosition(e.target.value)} value={position}/><br/>
+//                 <input type="submit" value="Add" />
+//             </form>
+//         </div>
+//     )
+// }
+
+// export default PlayerForm

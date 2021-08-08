@@ -1,7 +1,7 @@
+
 import React, { useState } from 'react'
 import axios from 'axios'
 import { Link, navigate } from '@reach/router'
-import Header from '../components/Header';
 import {
     Paper,
     FormControl,
@@ -17,18 +17,16 @@ const styles = {
     }
 }
 
-const ManagerForm = (props) => {
+const AuthorForm = (props) => {
     const [name, setName] = useState('')
-    const [position, setPosition] = useState('')
     const [errors, setErrors] = useState([]); 
 
     const onSubmitHandler = (e) => {
         e.preventDefault()
-        axios.post('http://localhost:8000/api/managers/new', {
-            name,
-            position
+        axios.post('http://localhost:8000/api/authors/new', {
+            name
             })
-            .then((res) => console.log(res) & navigate("/managers"))
+            .then((res) => console.log(res) & navigate("/authors"))
             .catch(err=>{
                 const errorResponse = err.response.data.errors; // Get the errors from err.response.data
                 const errorArr = []; // Define a temp error array to push the messages in
@@ -41,31 +39,29 @@ const ManagerForm = (props) => {
     
         
     const home = () => {
-        navigate("/managers")
+        navigate("/authors")
     }
 
     return (
         <> 
-            <Header/>
-              <p>Add Player</p>
+            <h2>Favorite Authors:</h2>
+            <Button type="submit" variant="contained" color="primary" onClick={e => {home()}}>
+                Home
+                </Button>      
+              <p>Add a new Author</p>
 
                 <form onSubmit={onSubmitHandler}>
                 {errors.map((err, index) => <p key={index}>{err}</p>)}
 
                 <FormControl variant="outlined">
-                    <label>Name : </label>
+                    <label>Name: </label>
                     <OutlinedInput type="text" onChange={(e) => setName(e.target.value)}/>
                 </FormControl>
-                <FormControl variant="outlined">
-                    <label>Position : </label>
-                    <OutlinedInput type="text" onChange={(e) => setPosition(e.target.value)}/>
-                </FormControl>
-     
                 <br/><br/>
-                <Button style={styles.button} type="submit" variant="contained" color="primary" onClick={e=>home()}>
+                <Button style={styles.button} type="submit" variant="contained" color="primary" onClick={e => {home()}}>
                 Cancel
                 </Button>
-                <Button style={styles.button} type="submit" variant="contained" color="primary"  >
+                <Button style={styles.button} type="submit" variant="contained" color="primary" >
                 Submit
                 </Button>
             </form>
@@ -74,4 +70,4 @@ const ManagerForm = (props) => {
     )
 }
 
-export default ManagerForm
+export default AuthorForm

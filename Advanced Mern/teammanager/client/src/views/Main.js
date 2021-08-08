@@ -9,7 +9,6 @@ const Main = () => {
             .then(res=>{
                 setManager(res.data);
                 setLoaded(true);
-                console.log(res.data)
             });
     },[])
 
